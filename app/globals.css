@@ -5,9 +5,14 @@
   --foreground: #16203f;
   --brand-navy: #142850;
   --brand-indigo: #3d2c8d;
-  --brand-orange: #f5a23c;
+  --brand-orange: #f2a33c;
   --brand-sky: #2f8fd1;
   --brand-cyan-light: #d6f7f9;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 @theme inline {

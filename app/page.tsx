@@ -5,7 +5,6 @@ import About from "./components/About";
 import Values from "./components/Values";
 import WhatWeDo from "./components/WhatWeDo";
 import WhyChooseUs from "./components/WhyChooseUs";
-import StrategicOverview from "./components/StrategicOverview";
 import Stats from "./components/Stats";
 import CompetitiveAdvantage from "./components/CompetitiveAdvantage";
 import SuccessStories from "./components/SuccessStories";
@@ -23,7 +22,6 @@ export default function Home() {
         <Values />
         <WhatWeDo />
         <WhyChooseUs />
-        <StrategicOverview />
         <Stats />
         <CompetitiveAdvantage />
         <SuccessStories />

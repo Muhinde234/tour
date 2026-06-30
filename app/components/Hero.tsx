@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section id="top" className="relative isolate overflow-hidden">
+    <section id="top" className="relative isolate overflow-hidden h-screen">
       <Image
         src="/images/hero-santorini.jpg"
         alt="Whitewashed clifftop village overlooking the sea in Santorini, Greece"

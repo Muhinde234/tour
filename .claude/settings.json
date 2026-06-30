@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm \"/e/emma/tour/app/components/StrategicOverview.tsx\" && echo \"removed\")"
+    ],
+    "additionalDirectories": [
+      "E:\\emma\\tour\\app\\components"
+    ]
+  }
+}

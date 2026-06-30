@@ -12,58 +12,99 @@ const advantages = [
   {
     title: "Promote Cultural Exchange",
     items: [
-      "Foster understanding and appreciation of different cultures through travel and study abroad programs.",
-      "Create opportunities for clients to engage with local communities and cultures.",
+      "Foster understanding and appreciation of different cultures through travel.",
+      "Create opportunities for clients to engage with local communities.",
     ],
   },
   {
-    title: "Support Academic and Personal Growth",
+    title: "Support Academic & Personal Growth",
     items: [
-      "Develop comprehensive study abroad programs that support academic achievements and personal development.",
-      "Offer guidance and resources to help students succeed in their international studies.",
+      "Develop programs that support academic achievements and development.",
+      "Offer guidance and resources to help students succeed internationally.",
     ],
   },
 ];
 
 export default function CompetitiveAdvantage() {
   return (
-    <section className="bg-brand-cyan-light/30 py-20">
-      <div className="mx-auto max-w-6xl px-6">
-        <h2 className="text-3xl font-extrabold text-brand-navy sm:text-4xl">
-          ETTA Competitive Advantage
-        </h2>
+    <section className="bg-white py-24 lg:py-32 overflow-hidden">
+      <div className="mx-auto max-w-[1400px] px-6">
+        
+        <div className="grid items-start gap-16 lg:grid-cols-12">
+          
+          {/* LEFT SIDE: Heading & Large Vertical Image */}
+          <div className="lg:col-span-5 lg:sticky lg:top-10">
+            <div className="mb-12">
+              <span className="mb-4 inline-block font-bold uppercase tracking-[0.4em] text-[#f2a33c] text-sm">
+                The ETTA Edge
+              </span>
+              <h2 className="text-5xl font-black leading-tight text-slate-900 lg:text-7xl">
+                Competitive <br />
+                <span className="text-[#f2a33c]">Advantage.</span>
+              </h2>
+              <p className="mt-6 text-xl text-slate-500 max-w-sm leading-relaxed">
+                We don&apos;t just plan trips; we engineer success through a unique blend of global expertise and local insight.
+              </p>
+            </div>
 
-        <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div className="space-y-4">
-            {advantages.map((adv) => (
+            {/* Massive Vertical Image */}
+            <div className="relative h-[400px] w-full lg:h-[700px]">
+              {/* Background Glow */}
+              <div className="absolute -left-10 top-10 -z-10 h-full w-full rounded-[4rem] bg-[#f2a33c]/5" />
+              
+              <div className="h-full w-full overflow-hidden rounded-[4rem] shadow-2xl">
+                <Image
+                  src="/images/advantage-notebook.jpg"
+                  alt="ETTA Planning"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT SIDE: LARGE STACKED CARDS */}
+          <div className="lg:col-span-7 space-y-10 lg:pl-10">
+            {advantages.map((adv, index) => (
               <div
                 key={adv.title}
-                className="rounded-xl bg-white p-6 shadow-sm"
+                className={`
+                  group relative rounded-[3.5rem] border border-slate-100 bg-white p-12 shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-500
+                  hover:shadow-[0_40px_80px_rgba(242,163,60,0.12)] hover:-translate-y-2
+                  ${index === 1 ? "lg:ml-[-5%]" : ""} 
+                `}
               >
-                <h3 className="text-lg font-bold text-brand-navy">
+                {/* Background Accent */}
+                <div className="absolute right-10 top-10 text-8xl font-black text-slate-50 opacity-[0.03] transition-opacity group-hover:opacity-10">
+                  {index + 1}
+                </div>
+
+                <h3 className="mb-8 text-3xl font-black text-slate-900 lg:text-4xl">
                   {adv.title}
                 </h3>
-                <ul className="mt-2 space-y-1 text-sm text-gray-700">
+
+                <ul className="space-y-6">
                   {adv.items.map((item) => (
-                    <li key={item} className="flex gap-2">
-                      <span className="text-brand-orange">—</span>
-                      <span>{item}</span>
+                    <li key={item} className="flex items-start gap-5">
+                      {/* Custom Checkmark Icon */}
+                      <div className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#f2a33c] text-white shadow-lg shadow-[#f2a33c]/30">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span className="text-lg leading-relaxed text-slate-600 group-hover:text-slate-900 transition-colors">
+                        {item}
+                      </span>
                     </li>
                   ))}
                 </ul>
+
+                {/* Bottom Decorative Line */}
+                <div className="mt-10 h-1 w-20 rounded-full bg-slate-100 transition-all duration-500 group-hover:w-full group-hover:bg-[#f2a33c]/20" />
               </div>
             ))}
           </div>
 
-          <div className="relative h-72 w-full overflow-hidden rounded-2xl shadow-xl sm:h-96">
-            <Image
-              src="/images/advantage-notebook.jpg"
-              alt="Notebook, laptop, and phone on a desk symbolizing ETTA's planning process"
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
-          </div>
         </div>
       </div>
     </section>
