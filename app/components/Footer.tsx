@@ -24,7 +24,7 @@ export default function Footer() {
             experience.
           </p>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
             <div className="rounded-xl bg-brand-orange p-5">
               <p className="text-xs font-bold uppercase tracking-wide text-white/80">
                 Address
@@ -44,19 +44,6 @@ export default function Footer() {
               </a>
               <a href="tel:+18175003240" className="block font-semibold hover:underline">
                 +1 817 500 3240
-              </a>
-            </div>
-            <div className="rounded-xl bg-white/15 p-5">
-              <p className="text-xs font-bold uppercase tracking-wide text-white/80">
-                Website
-              </p>
-              <a
-                href="https://www.emmatourtravel.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-1 block font-semibold hover:underline"
-              >
-                www.emmatourtravel.com
               </a>
             </div>
           </div>
