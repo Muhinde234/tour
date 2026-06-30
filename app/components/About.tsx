@@ -58,10 +58,10 @@ export default function About() {
           {/* RIGHT SIDE: Heavy Overlapping Cards */}
           <div className="relative lg:col-span-7 lg:pl-10">
             <div className="mb-16">
-              <span className="mb-4 inline-block font-bold uppercase tracking-[0.2em] text-[#f2a33c]">
+              <span className="mb-4 inline-block text-sm font-bold uppercase tracking-[0.3em] text-[#f2a33c]">
                 Get to know us
               </span>
-              <h2 className="text-5xl font-black leading-tight text-brand-navy lg:text-6xl">
+              <h2 className="text-5xl font-black leading-tight text-brand-navy lg:text-7xl">
                 Explore the World <br />
                 <span className="text-[#f2a33c]">With Confidence.</span>
               </h2>
@@ -98,7 +98,7 @@ export default function About() {
                     <h3 className="mb-4 text-2xl font-bold text-brand-navy">
                       {card.title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-gray-500 group-hover:text-gray-700">
+                    <p className="text-base leading-relaxed text-gray-500 group-hover:text-gray-700">
                       {card.body}
                     </p>
                   </div>
