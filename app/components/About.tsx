@@ -98,7 +98,7 @@ export default function About() {
                     <h3 className="mb-4 text-2xl font-bold text-brand-navy">
                       {card.title}
                     </h3>
-                    <p className="text-base leading-relaxed text-gray-500 group-hover:text-gray-700">
+                    <p className="text-sm leading-relaxed text-gray-500 group-hover:text-gray-700">
                       {card.body}
                     </p>
                   </div>
