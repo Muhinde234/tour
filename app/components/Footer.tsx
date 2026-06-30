@@ -12,10 +12,9 @@ export default function Footer() {
       />
       <div className="relative mx-auto max-w-6xl px-6">
         <div className="rounded-2xl bg-white/10 p-8 backdrop-blur-sm sm:p-12">
-          <h2 className="text-3xl font-extrabold sm:text-4xl">Thank You!</h2>
-          <p className="mt-3 text-lg font-medium text-brand-orange">
-            Because, we&apos;re here to help.
-          </p>
+          <h2 className="text-3xl font-extrabold sm:text-4xl">
+            Let&apos;s Plan Your Next Journey
+          </h2>
           <p className="mt-4 max-w-2xl text-white/85 leading-relaxed">
             We take the time to understand your interests, goals, and
             preferences, allowing us to craft bespoke solutions that exceed
@@ -52,6 +51,9 @@ export default function Footer() {
         <p className="mt-8 text-center text-sm text-white/60">
           &copy; {new Date().getFullYear()} EMMA TOUR AND TRAVEL AGENCY LTD.
           All rights reserved. &mdash; Say Yes To New World!
+        </p>
+        <p className="mt-2 text-center text-xs text-white/40">
+          Developed by SAN Tech
         </p>
       </div>
     </footer>

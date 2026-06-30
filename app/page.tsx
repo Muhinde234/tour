@@ -9,6 +9,7 @@ import Stats from "./components/Stats";
 import CompetitiveAdvantage from "./components/CompetitiveAdvantage";
 import SuccessStories from "./components/SuccessStories";
 import Team from "./components/Team";
+import Careers from "./components/Careers";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -26,6 +27,7 @@ export default function Home() {
         <CompetitiveAdvantage />
         <SuccessStories />
         <Team />
+        <Careers />
       </main>
       <Footer />
     </div>
