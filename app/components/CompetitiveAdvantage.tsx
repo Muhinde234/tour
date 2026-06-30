@@ -36,14 +36,14 @@ export default function CompetitiveAdvantage() {
           <div className="lg:col-span-5 lg:sticky lg:top-10">
             <div className="mb-12">
               <span className="mb-4 inline-block font-bold uppercase tracking-[0.4em] text-[#f2a33c] text-sm">
-                The ETTA Edge
+                The ETTA Promise
               </span>
               <h2 className="text-5xl font-black leading-tight text-slate-900 lg:text-7xl">
-                Competitive <br />
-                <span className="text-[#f2a33c]">Advantage.</span>
+                What Sets Us <br />
+                <span className="text-[#f2a33c]">Apart.</span>
               </h2>
               <p className="mt-6 text-xl text-slate-500 max-w-sm leading-relaxed">
-                We don&apos;t just plan trips; we engineer success through a unique blend of global expertise and local insight.
+                We don&apos;t just plan trips — we build experiences that change lives through travel and education.
               </p>
             </div>
 

@@ -29,9 +29,9 @@ export default function About() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-16 lg:grid-cols-12">
           
-          {/* LEFT SIDE: Large Image & Experience Badge */}
+    
           <div className="relative lg:col-span-5">
-            {/* Decorative Background Element */}
+          
             <div className="absolute -bottom-10 -left-10 h-64 w-64 rounded-full bg-[#f2a33c]/10 blur-3xl" />
             
             <div className="relative z-10 h-[500px] w-full overflow-hidden rounded-[3rem] shadow-2xl lg:h-[750px]">

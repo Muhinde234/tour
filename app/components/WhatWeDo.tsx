@@ -63,10 +63,6 @@ export default function WhatWeDo() {
                   adventure trips, we ensure every journey is meticulously
                   planned and flawlessly executed.
                 </p>
-                <div className="mt-8 flex items-center gap-4 text-[#f2a33c] font-bold cursor-pointer group">
-                  <span className="uppercase tracking-widest text-sm">Explore Destinations</span>
-                  <div className="h-0.5 w-8 bg-[#f2a33c] transition-all group-hover:w-16" />
-                </div>
               </div>
             </div>
           </div>
@@ -87,10 +83,6 @@ export default function WhatWeDo() {
                   programs. We provide comprehensive guidance on choosing the
                   right institutions, applying for programs, and securing visas.
                 </p>
-                <div className="mt-8 flex items-center gap-4 text-[#f2a33c] font-bold cursor-pointer group">
-                  <span className="uppercase tracking-widest text-sm">View Programs</span>
-                  <div className="h-0.5 w-8 bg-[#f2a33c] transition-all group-hover:w-16" />
-                </div>
               </div>
             </div>
 
