@@ -48,7 +48,7 @@ export default function About() {
             
             {/* Floating Experience Badge (Matching your button color) */}
             <div className="absolute -bottom-6 -right-6 z-30 flex flex-col items-center justify-center rounded-3xl bg-[#f2a33c] p-8 text-white shadow-[0_20px_50px_rgba(242,163,60,0.4)]">
-              <span className="text-5xl font-black">10+</span>
+              <span className="text-5xl font-black">15+</span>
               <span className="text-xs font-bold uppercase tracking-widest opacity-90">
                 Years of <br /> Excellence
               </span>
