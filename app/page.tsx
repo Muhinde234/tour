@@ -11,6 +11,7 @@ import SuccessStories from "./components/SuccessStories";
 import Team from "./components/Team";
 import Careers from "./components/Careers";
 import Footer from "./components/Footer";
+import SanTechMarquee from "./components/SanTechMarquee";
 import ScrollToTop from "./components/ScrollToTop";
 
 export default function Home() {
@@ -29,6 +30,7 @@ export default function Home() {
         <SuccessStories />
         <Team />
         <Careers />
+        <SanTechMarquee />
       </main>
       <Footer />
       <ScrollToTop />

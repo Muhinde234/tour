@@ -19,26 +19,26 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-black/5 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3">
-        <Link href="#top" className="flex items-center gap-3" onClick={() => setOpen(false)}>
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-2">
+        <Link href="#top" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
           <Image
             src="/images/logo.png"
             alt="EMMA TOUR AND TRAVEL AGENCY logo"
-            width={48}
-            height={48}
+            width={36}
+            height={36}
             priority
           />
           <span className="flex flex-col leading-tight">
-            <span className="text-xs font-bold tracking-wide text-brand-navy sm:text-sm">
+            <span className="text-[11px] font-bold tracking-wide text-brand-navy sm:text-xs">
               EMMA TOUR AND TRAVEL AGENCY
             </span>
-            <span className="text-[10px] font-medium text-brand-orange sm:text-xs">
+            <span className="text-[9px] font-medium text-brand-orange sm:text-[10px]">
               Say Yes To New World!
             </span>
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm font-medium text-brand-navy md:flex">
+        <nav className="hidden items-center gap-5 text-lg font-medium text-brand-navy md:flex">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -53,7 +53,7 @@ export default function Header() {
         <div className="flex items-center gap-2">
           <a
             href="#contact"
-            className="hidden rounded-full bg-brand-orange px-5 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-navy sm:inline-block"
+            className="hidden rounded-full bg-brand-orange px-5 py-2 text-lg font-semibold text-white shadow-sm transition-colors hover:bg-brand-navy sm:inline-block"
           >
             Plan My Trip
           </a>
