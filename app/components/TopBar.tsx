@@ -21,7 +21,7 @@ export default function TopBar() {
             />
           </svg>
           <span className="whitespace-nowrap">
-            +250 785 316 178 / +254 112 538 982
+            +250 785 316 178 / +254 112 538 982 / +1 817 500 3240
           </span>
         </a>
 
