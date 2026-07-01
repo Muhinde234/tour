@@ -20,7 +20,8 @@ export function useTable<T extends { id: string }>(
 
   const fetch = useCallback(async () => {
     setLoading(true);
-    let q = supabase.from(table).select("*").order(orderBy);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let q = (supabase.from(table) as any).select("*").order(orderBy);
     if (filters) Object.entries(filters).forEach(([k, v]) => { q = q.eq(k, v); });
     const { data } = await q;
     if (data) setItems(data as T[]);
@@ -37,7 +38,8 @@ export function useTable<T extends { id: string }>(
 
   const save = useCallback(async (item: T) => {
     setSaving((p) => ({ ...p, [item.id]: true }));
-    const { error } = await supabase.from(table).update(item).eq("id", item.id);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await (supabase.from(table) as any).update(item).eq("id", item.id);
     setSaving((p) => ({ ...p, [item.id]: false }));
     notify(error ? `Error: ${error.message}` : "Saved successfully!");
     return !error;
@@ -45,7 +47,11 @@ export function useTable<T extends { id: string }>(
 
   const add = useCallback(async (newItem: Omit<T, "id">) => {
     setSaving((p) => ({ ...p, __new: true }));
-    const { data, error } = await supabase.from(table).insert(newItem).select().single();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data, error } = await (supabase.from(table) as any)
+      .insert(newItem)
+      .select()
+      .single();
     setSaving((p) => ({ ...p, __new: false }));
     if (error) { notify(`Error: ${error.message}`); return null; }
     setItems((prev) => [...prev, data as T]);
@@ -55,7 +61,8 @@ export function useTable<T extends { id: string }>(
 
   const remove = useCallback(async (id: string) => {
     setSaving((p) => ({ ...p, [id]: true }));
-    const { error } = await supabase.from(table).delete().eq("id", id);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await (supabase.from(table) as any).delete().eq("id", id);
     if (!error) setItems((prev) => prev.filter((i) => i.id !== id));
     setSaving((p) => ({ ...p, [id]: false }));
     notify(error ? `Error: ${error.message}` : "Deleted!");
