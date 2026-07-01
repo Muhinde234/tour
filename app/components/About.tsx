@@ -61,7 +61,7 @@ export default function About() {
               <span className="mb-4 inline-block font-bold uppercase tracking-[0.2em] text-[#f2a33c]">
                 Get to know us
               </span>
-              <h2 className="text-5xl font-black leading-tight text-brand-navy lg:text-6xl">
+              <h2 className="text-3xl font-black leading-tight text-brand-navy lg:text-4xl">
                 Explore the World <br />
                 <span className="text-[#f2a33c]">With Confidence.</span>
               </h2>

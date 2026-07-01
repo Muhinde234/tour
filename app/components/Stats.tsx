@@ -37,7 +37,7 @@ export default function Stats() {
             <span className="mb-4 inline-block text-sm font-bold uppercase tracking-[0.3em] text-[#f2a33c]">
               Track Record
             </span>
-            <h2 className="text-5xl font-black leading-tight text-slate-900">
+            <h2 className="text-3xl font-black leading-tight text-slate-900 lg:text-4xl">
               Performance <br /> Overview
             </h2>
 

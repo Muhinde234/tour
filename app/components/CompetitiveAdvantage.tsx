@@ -38,7 +38,7 @@ export default function CompetitiveAdvantage() {
               <span className="mb-4 inline-block font-bold uppercase tracking-[0.4em] text-[#f2a33c] text-sm">
                 The ETTA Promise
               </span>
-              <h2 className="text-5xl font-black leading-tight text-slate-900 lg:text-7xl">
+              <h2 className="text-3xl font-black leading-tight text-slate-900 lg:text-4xl">
                 What Sets Us <br />
                 <span className="text-[#f2a33c]">Apart.</span>
               </h2>

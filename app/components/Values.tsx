@@ -42,7 +42,7 @@ export default function Values() {
               <span className="mb-4 inline-block font-bold uppercase tracking-[0.3em] text-[#f2a33c]">
                 Our Core Philosophy
               </span>
-              <h2 className="text-5xl font-black leading-[1.1] lg:text-7xl">
+              <h2 className="text-3xl font-black leading-[1.1] lg:text-4xl">
                 The Values <br />
                 That <span className="text-[#f2a33c]">Drive Us.</span>
               </h2>

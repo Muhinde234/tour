@@ -17,7 +17,7 @@ export default function Careers() {
               <span className="mb-4 inline-block text-sm font-bold uppercase tracking-[0.3em] text-[#f2a33c]">
                 We&apos;re Hiring
               </span>
-              <h2 className="text-4xl font-black leading-tight text-white lg:text-6xl">
+              <h2 className="text-3xl font-black leading-tight text-white lg:text-4xl">
                 Career Opportunities
               </h2>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80">

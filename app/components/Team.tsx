@@ -31,7 +31,7 @@ export default function Team() {
           <span className="mb-4 inline-block text-sm font-bold uppercase tracking-[0.3em] text-[#f2a33c]">
             The People Behind ETTA
           </span>
-          <h2 className="text-5xl font-black leading-tight text-slate-900 lg:text-7xl">
+          <h2 className="text-3xl font-black leading-tight text-slate-900 lg:text-4xl">
             Our Super Team
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-500">

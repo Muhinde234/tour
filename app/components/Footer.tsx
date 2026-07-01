@@ -12,7 +12,7 @@ export default function Footer() {
       />
       <div className="relative mx-auto max-w-6xl px-6">
         <div className="rounded-2xl bg-white/10 p-8 backdrop-blur-sm sm:p-12">
-          <h2 className="text-3xl font-extrabold sm:text-4xl">
+          <h2 className="text-3xl font-black sm:text-4xl">
             Let&apos;s Plan Your Next Journey
           </h2>
           <p className="mt-4 max-w-2xl text-white/85 leading-relaxed">

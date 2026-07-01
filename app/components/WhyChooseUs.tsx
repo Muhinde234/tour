@@ -31,7 +31,7 @@ export default function WhyChooseUs() {
               <span className="mb-4 inline-block font-bold uppercase tracking-[0.3em] text-[#f2a33c]">
                 The ETTA Advantage
               </span>
-              <h2 className="text-5xl font-black leading-tight text-slate-900 lg:text-7xl">
+              <h2 className="text-3xl font-black leading-tight text-slate-900 lg:text-4xl">
                 Why Choose <br /> 
                 <span className="text-[#f2a33c]">Our Agency?</span>
               </h2>
@@ -91,7 +91,7 @@ export default function WhyChooseUs() {
             
             <div className="relative z-10 flex flex-col items-center justify-between gap-10 lg:flex-row">
                 <div className="max-w-3xl">
-                    <h3 className="text-3xl font-bold text-white lg:text-5xl lg:leading-tight">
+                    <h3 className="text-3xl font-bold text-white lg:text-4xl lg:leading-tight">
                         Your adventure starts here. Join us on a journey of discovery, learning, and growth.
                     </h3>
                 </div>

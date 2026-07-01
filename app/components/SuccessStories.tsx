@@ -51,7 +51,7 @@ export default function SuccessStories() {
           <span className="mb-4 inline-block text-sm font-bold uppercase tracking-[0.4em] text-[#f2a33c]">
             Proven Results
           </span>
-          <h2 className="text-6xl font-black leading-tight text-slate-900 lg:text-8xl">
+          <h2 className="text-3xl font-black leading-tight text-slate-900 lg:text-4xl">
             Success <span className="text-[#f2a33c]">Stories.</span>
           </h2>
         </div>
