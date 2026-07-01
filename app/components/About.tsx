@@ -76,7 +76,7 @@ export default function About() {
                   className={`
                     group relative flex min-h-[320px] flex-col justify-between rounded-[2.5rem] bg-white p-10 shadow-[0_15px_40px_rgba(0,0,0,0.04)] transition-all duration-500 hover:shadow-[0_30px_60px_rgba(242,163,60,0.15)]
                     ${index === 0 ? "lg:z-10 lg:mb-6" : ""}
-                    ${index === 1 ? "lg:z-20 lg:ml-[-15%] lg:mt-24" : ""}
+                    ${index === 1 ? "lg:z-20 lg:ml-[-10%] lg:mt-24" : ""}
                     ${index === 2 ? "lg:z-30 lg:mt-[-10%]" : ""}
                     ${index === 3 ? "lg:z-40 lg:ml-[-15%] lg:mt-12" : ""}
                   `}
