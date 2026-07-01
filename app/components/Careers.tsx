@@ -1,3 +1,16 @@
+"use client";
+
+function ApplyButton() {
+  return (
+    <button
+      onClick={() => window.dispatchEvent(new Event("open-apply"))}
+      className="mt-10 inline-block rounded-full bg-[#f2a33c] px-10 py-4 text-base font-bold text-white shadow-lg transition-transform hover:scale-105"
+    >
+      Apply Now
+    </button>
+  );
+}
+
 const countries = [
   { name: "Portugal", flag: "🇵🇹" },
   { name: "Norway", flag: "🇳🇴" },
@@ -38,12 +51,7 @@ export default function Careers() {
                 ))}
               </div>
 
-              <a
-                href="#contact"
-                className="mt-10 inline-block rounded-full bg-[#f2a33c] px-10 py-4 text-base font-bold text-white shadow-lg transition-transform hover:scale-105"
-              >
-                Apply Now
-              </a>
+              <ApplyButton />
             </div>
           </div>
         </div>

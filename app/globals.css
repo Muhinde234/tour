@@ -15,6 +15,25 @@ html {
   scroll-padding-top: 5rem;
 }
 
+/* react-phone-number-input overrides */
+.phone-input-custom .PhoneInputInput {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.875rem;
+  color: #111827;
+  width: 100%;
+}
+.phone-input-custom .PhoneInputCountry {
+  margin-right: 8px;
+}
+.phone-input-custom .PhoneInputCountrySelect {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
 @keyframes marquee-x {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }

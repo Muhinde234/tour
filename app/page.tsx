@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 import SanTechMarquee from "./components/SanTechMarquee";
 import ScrollToTop from "./components/ScrollToTop";
 import ContactModal from "./components/ContactModal";
+import ApplyModal from "./components/ApplyModal";
 
 export default function Home() {
   return (
@@ -36,6 +37,7 @@ export default function Home() {
       <Footer />
       <ScrollToTop />
       <ContactModal />
+      <ApplyModal />
     </div>
   );
 }

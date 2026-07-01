@@ -1,4 +1,5 @@
 import Image from "next/image";
+import OpenContactButton from "./OpenContactButton";
 
 export default function Footer() {
   return (
@@ -12,16 +13,20 @@ export default function Footer() {
       />
       <div className="relative mx-auto max-w-6xl px-6">
         <div className="rounded-2xl bg-white/10 p-8 backdrop-blur-sm sm:p-12">
-          <h2 className="text-3xl font-black sm:text-4xl">
-            Let&apos;s Plan Your Next Journey
-          </h2>
-          <p className="mt-4 max-w-2xl text-white/85 leading-relaxed">
-            We take the time to understand your interests, goals, and
-            preferences, allowing us to craft bespoke solutions that exceed
-            your expectations. Our dedicated team is here to support you
-            every step of the way, ensuring a seamless and enjoyable
-            experience.
-          </p>
+          {/* Heading row with CTA button */}
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="text-3xl font-black sm:text-4xl">
+                Let&apos;s Plan Your Next Journey
+              </h2>
+              <p className="mt-3 max-w-xl text-white/70 leading-relaxed">
+                We take the time to understand your interests, goals, and
+                preferences, allowing us to craft bespoke solutions that exceed
+                your expectations.
+              </p>
+            </div>
+            <OpenContactButton />
+          </div>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             <div className="rounded-xl bg-brand-orange p-5">

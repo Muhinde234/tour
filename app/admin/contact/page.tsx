@@ -30,10 +30,10 @@ export default function ContactPage() {
   if (!info) return <div className="text-sm text-gray-400">Loading…</div>;
 
   return (
-    <div>
+    <div className="max-w-2xl">
       <PageHeader title="Contact Information" description="These values appear in the top banner and footer of the site." />
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2">
         {/* Phone Numbers */}
         <Card title="Phone Numbers">
           <div className="space-y-4">
