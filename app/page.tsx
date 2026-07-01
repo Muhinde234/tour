@@ -11,6 +11,7 @@ import SuccessStories from "./components/SuccessStories";
 import Team from "./components/Team";
 import Careers from "./components/Careers";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default function Home() {
   return (
@@ -30,6 +31,7 @@ export default function Home() {
         <Careers />
       </main>
       <Footer />
+      <ScrollToTop />
     </div>
   );
 }
