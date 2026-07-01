@@ -32,7 +32,7 @@ const values = [
 
 export default function Values() {
   return (
-    <section className="bg-brand-navy overflow-hidden py-16 text-white lg:py-24">
+    <section className="bg-brand-navy overflow-hidden py-12 text-white">
       <div className="mx-auto max-w-[1400px] px-6">
         <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
           

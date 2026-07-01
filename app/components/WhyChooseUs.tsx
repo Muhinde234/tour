@@ -20,7 +20,7 @@ const reasons = [
 
 export default function WhyChooseUs() {
   return (
-    <section id="why-us" className="bg-[#f8fafc] py-12 lg:py-16 overflow-hidden">
+    <section id="why-us" className="bg-[#f8fafc] py-12 overflow-hidden">
       <div className="mx-auto max-w-[1400px] px-6">
         
         <div className="grid items-center gap-16 lg:grid-cols-2">

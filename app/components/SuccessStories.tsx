@@ -43,7 +43,7 @@ const marqueeStories = [...stories, ...stories, ...stories];
 
 export default function SuccessStories() {
   return (
-    <section id="stories" className="relative overflow-hidden bg-[#FAF9F6] py-20 lg:py-32">
+    <section id="stories" className="overflow-hidden bg-[#FAF9F6] py-12">
       <div className="mx-auto max-w-[1400px]">
         
         {/* HEADER */}

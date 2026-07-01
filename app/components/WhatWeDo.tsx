@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function WhatWeDo() {
   return (
-    <section id="services" className="bg-white py-12 lg:py-16 overflow-hidden">
+    <section id="services" className="bg-white py-12 overflow-hidden">
       <div className="mx-auto max-w-[1400px] px-6">
         
         {/* SECTION HEADER & MISSION MANIFESTO */}
