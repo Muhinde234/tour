@@ -1,56 +1,38 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-import { supabase } from "@/lib/supabase";
-import { Card, FieldLabel, Input, Textarea, SaveButton, Toast, PageHeader } from "../_components/ui";
+import { useTable } from "@/lib/useTable";
+import { Card, FieldLabel, Input, Textarea, SaveButton, DeleteButton, AddButton, Toast, PageHeader } from "../_components/ui";
 
 type AboutCard = { id: string; number: string; title: string; body: string; display_order: number };
 
 export default function AboutPage() {
-  const [cards, setCards]   = useState<AboutCard[]>([]);
-  const [saving, setSaving] = useState<Record<string, boolean>>({});
-  const [toast, setToast]   = useState("");
+  const { items: cards, saving, toast, update, save, add, remove } = useTable<AboutCard>("about_cards");
 
-  const notify = useCallback((msg: string) => { setToast(msg); setTimeout(() => setToast(""), 3000); }, []);
-
-  useEffect(() => {
-    supabase.from("about_cards").select("*").order("display_order")
-      .then(({ data }) => { if (data) setCards(data); });
-  }, []);
-
-  function update(i: number, field: keyof AboutCard, val: string) {
-    setCards((prev) => { const u = [...prev]; u[i] = { ...u[i], [field]: val }; return u; });
-  }
-
-  async function save(i: number) {
-    const c = cards[i];
-    setSaving((p) => ({ ...p, [c.id]: true }));
-    const { error } = await supabase.from("about_cards").update(c).eq("id", c.id);
-    setSaving((p) => ({ ...p, [c.id]: false }));
-    notify(error ? "Error saving." : `Card ${c.number} saved!`);
+  async function addCard() {
+    const n = String(cards.length + 1).padStart(2, "0");
+    await add({ number: n, title: "New Card", body: "Describe this section.", display_order: cards.length + 1 });
   }
 
   return (
     <div>
-      <PageHeader title="About Cards" description="Edit the four cards displayed in the About Us section." />
+      <PageHeader title="About Cards" description="Edit the cards displayed in the About Us section."
+        action={<AddButton onClick={addCard} loading={!!saving.__new} label="Add Card" />} />
 
       <div className="grid gap-5 sm:grid-cols-2">
-        {cards.map((card, i) => (
+        {cards.map((card) => (
           <Card key={card.id}>
             <div className="mb-4 flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#f2a33c] text-sm font-black text-white">
-                {card.number}
-              </span>
+              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#f2a33c] text-xs font-black text-white">{card.number}</span>
               <p className="font-bold text-[#0f1e3c]">{card.title}</p>
             </div>
-
             <div className="space-y-3">
-              <div><FieldLabel>Title</FieldLabel><Input value={card.title} onChange={(v) => update(i, "title", v)} /></div>
-              <div><FieldLabel>Body Text</FieldLabel><Textarea value={card.body} rows={4} onChange={(v) => update(i, "body", v)} /></div>
+              <div><FieldLabel>Number Badge</FieldLabel><Input value={card.number} onChange={(v) => update(card.id, { number: v })} placeholder="01" /></div>
+              <div><FieldLabel>Title</FieldLabel><Input value={card.title} onChange={(v) => update(card.id, { title: v })} /></div>
+              <div><FieldLabel>Body</FieldLabel><Textarea value={card.body} rows={4} onChange={(v) => update(card.id, { body: v })} /></div>
             </div>
-
-            <div className="mt-5 flex justify-end">
-              <SaveButton onClick={() => save(i)} loading={!!saving[card.id]} />
+            <div className="mt-4 flex items-center justify-between">
+              <DeleteButton onClick={() => remove(card.id)} loading={!!saving[card.id]} />
+              <SaveButton onClick={() => save(card)} loading={!!saving[card.id]} />
             </div>
           </Card>
         ))}
