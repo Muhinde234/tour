@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer id="contact" className="relative overflow-hidden bg-brand-navy py-20 text-white">
+    <footer id="contact" className="relative overflow-hidden bg-brand-navy py-10 text-white">
       <Image
         src="/images/footer-skyline.jpg"
         alt=""

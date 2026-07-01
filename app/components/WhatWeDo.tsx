@@ -2,11 +2,11 @@ import Image from "next/image";
 
 export default function WhatWeDo() {
   return (
-    <section id="services" className="bg-white py-24 lg:py-32 overflow-hidden">
+    <section id="services" className="bg-white py-12 lg:py-16 overflow-hidden">
       <div className="mx-auto max-w-[1400px] px-6">
         
         {/* SECTION HEADER & MISSION MANIFESTO */}
-        <div className="mb-24 grid items-end gap-12 lg:grid-cols-12">
+        <div className="mb-10 grid items-end gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <span className="mb-4 inline-block font-bold uppercase tracking-[0.3em] text-[#f2a33c]">
               Our Purpose
@@ -34,7 +34,7 @@ export default function WhatWeDo() {
         </div>
 
         {/* SERVICES: OVERLAPPING DESIGN */}
-        <div className="space-y-32">
+        <div className="space-y-16">
           
           {/* SERVICE 1: TOURISM */}
           <div className="grid items-center gap-12 lg:grid-cols-12">

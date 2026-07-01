@@ -20,10 +20,10 @@ const photos = [
 
 export default function SuccessStories() {
   return (
-    <section id="stories" className="overflow-hidden bg-[#FAF9F6] py-24 lg:py-40">
+    <section id="stories" className="overflow-hidden bg-[#FAF9F6] py-12 lg:py-16">
       <div className="mx-auto max-w-[1400px] px-6">
         {/* HEADER SECTION */}
-        <div className="relative mb-24 flex flex-col items-center text-center">
+        <div className="relative mb-10 flex flex-col items-center text-center">
           <span className="mb-4 inline-block text-sm font-bold uppercase tracking-[0.4em] text-[#f2a33c]">
             Proven Results
           </span>
@@ -66,7 +66,7 @@ export default function SuccessStories() {
         </div>
 
         {/* BOTTOM MOTIVATIONAL QUOTE */}
-        <div className="mt-40 text-center">
+        <div className="mt-14 text-center">
           <h3 className="text-3xl font-bold text-slate-800 lg:text-4xl">
             Ready to be our next{" "}
             <span className="text-[#f2a33c]">Success Story?</span>

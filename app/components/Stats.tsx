@@ -14,7 +14,7 @@ const regions = [
 
 export default function Stats() {
   return (
-    <section className="overflow-hidden bg-white py-24 lg:py-32">
+    <section className="overflow-hidden bg-white py-12 lg:py-16">
       <div className="mx-auto max-w-[1400px] px-6">
         <div className="grid items-center gap-16 lg:grid-cols-12">
           {/* IMAGE SIDE */}

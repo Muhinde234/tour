@@ -20,7 +20,7 @@ const reasons = [
 
 export default function WhyChooseUs() {
   return (
-    <section id="why-us" className="bg-[#f8fafc] py-24 lg:py-32 overflow-hidden">
+    <section id="why-us" className="bg-[#f8fafc] py-12 lg:py-16 overflow-hidden">
       <div className="mx-auto max-w-[1400px] px-6">
         
         <div className="grid items-center gap-16 lg:grid-cols-2">
@@ -85,7 +85,7 @@ export default function WhyChooseUs() {
         </div>
 
         {/* BOTTOM CTA STRIP - The final closing statement */}
-        <div className="relative mt-24 overflow-hidden rounded-[4rem] bg-slate-900 p-12 lg:p-20">
+        <div className="relative mt-10 overflow-hidden rounded-[4rem] bg-slate-900 p-10 lg:p-14">
             {/* Background Glow */}
             <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-[#f2a33c]/20 blur-[100px]" />
             

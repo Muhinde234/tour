@@ -27,7 +27,7 @@ const advantages = [
 
 export default function CompetitiveAdvantage() {
   return (
-    <section className="bg-white py-24 lg:py-32 overflow-hidden">
+    <section className="bg-white py-12 lg:py-16 overflow-hidden">
       <div className="mx-auto max-w-[1400px] px-6">
         
         <div className="grid items-start gap-16 lg:grid-cols-12">

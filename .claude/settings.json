@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(rm \"/e/emma/tour/app/components/StrategicOverview.tsx\" && echo \"removed\")"
+      "Bash(rm \"/e/emma/tour/app/components/StrategicOverview.tsx\" && echo \"removed\")",
+      "Bash(grep -n \"py-\" /e/emma/tour/app/components/About.tsx /e/emma/tour/app/components/Values.tsx /e/emma/tour/app/components/WhatWeDo.tsx /e/emma/tour/app/components/WhyChooseUs.tsx /e/emma/tour/app/components/Stats.tsx /e/emma/tour/app/components/CompetitiveAdvantage.tsx /e/emma/tour/app/components/SuccessStories.tsx /e/emma/tour/app/components/Team.tsx /e/emma/tour/app/components/Careers.tsx /e/emma/tour/app/components/Footer.tsx 2>/dev/null | grep \"section\\\\|space-y\\\\|mb-24\\\\|mb-32\\\\|mt-40\\\\|mt-24\\\\|py-\")",
+      "Read(//e/emma/tour/app/components/**)",
+      "Bash(grep -n \"space-y-32\\\\|mb-24\\\\|mb-16\\\\|mb-32\\\\|mt-40\\\\|mt-24\\\\|py-40\" /e/emma/tour/app/components/WhatWeDo.tsx /e/emma/tour/app/components/SuccessStories.tsx /e/emma/tour/app/components/WhyChooseUs.tsx /e/emma/tour/app/components/About.tsx /e/emma/tour/app/components/Stats.tsx 2>/dev/null)"
     ],
     "additionalDirectories": [
       "E:\\emma\\tour\\app\\components"

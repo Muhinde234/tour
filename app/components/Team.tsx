@@ -25,7 +25,7 @@ const team = [
 
 export default function Team() {
   return (
-    <section id="team" className="overflow-hidden bg-white py-24 lg:py-32">
+    <section id="team" className="overflow-hidden bg-white py-12 lg:py-16">
       <div className="mx-auto max-w-[1400px] px-6">
         <div className="mb-16 text-center">
           <span className="mb-4 inline-block text-sm font-bold uppercase tracking-[0.3em] text-[#f2a33c]">

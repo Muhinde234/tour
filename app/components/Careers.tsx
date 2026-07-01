@@ -7,7 +7,7 @@ const countries = [
 
 export default function Careers() {
   return (
-    <section id="careers" className="overflow-hidden bg-[#f8fafc] py-24 lg:py-32">
+    <section id="careers" className="overflow-hidden bg-[#f8fafc] py-12 lg:py-16">
       <div className="mx-auto max-w-[1400px] px-6">
         <div className="relative overflow-hidden rounded-[3rem] bg-brand-navy p-12 lg:p-20">
           <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-[#f2a33c]/20 blur-[100px]" />

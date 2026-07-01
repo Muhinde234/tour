@@ -25,7 +25,7 @@ const cards = [
 
 export default function About() {
   return (
-    <section id="about" className="bg-[#FAF9F6] py-24 overflow-hidden">
+    <section id="about" className="bg-[#FAF9F6] py-12 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-16 lg:grid-cols-12">
           
