@@ -4,14 +4,18 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+function openContact() {
+  window.dispatchEvent(new Event("open-contact"));
+}
+
 const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#services", label: "Services" },
-  { href: "#why-us", label: "Why Us" },
-  { href: "#stories", label: "Success Stories" },
-  { href: "#team", label: "Team" },
-  { href: "#careers", label: "Careers" },
-  { href: "#contact", label: "Contact" },
+  { href: "#about",   label: "About",          modal: false },
+  { href: "#services",label: "Services",        modal: false },
+  { href: "#why-us",  label: "Why Us",          modal: false },
+  { href: "#stories", label: "Success Stories", modal: false },
+  { href: "#team",    label: "Team",            modal: false },
+  { href: "#careers", label: "Careers",         modal: false },
+  { href: "#",        label: "Contact",         modal: true  },
 ];
 
 export default function Header() {
@@ -39,24 +43,28 @@ export default function Header() {
         </Link>
 
         <nav className="hidden items-center gap-5 text-lg font-medium text-brand-navy md:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="transition-colors hover:text-brand-orange"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.modal ? (
+              <button key={link.label} onClick={openContact}
+                className="transition-colors hover:text-brand-orange">
+                {link.label}
+              </button>
+            ) : (
+              <a key={link.href} href={link.href}
+                className="transition-colors hover:text-brand-orange">
+                {link.label}
+              </a>
+            )
+          )}
         </nav>
 
         <div className="flex items-center gap-2">
-          <a
-            href="#contact"
+          <button
+            onClick={openContact}
             className="hidden rounded-full bg-brand-orange px-5 py-2 text-lg font-semibold text-white shadow-sm transition-colors hover:bg-brand-navy sm:inline-block"
           >
             Plan My Trip
-          </a>
+          </button>
 
           <button
             type="button"

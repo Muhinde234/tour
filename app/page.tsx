@@ -13,6 +13,7 @@ import Careers from "./components/Careers";
 import Footer from "./components/Footer";
 import SanTechMarquee from "./components/SanTechMarquee";
 import ScrollToTop from "./components/ScrollToTop";
+import ContactModal from "./components/ContactModal";
 
 export default function Home() {
   return (
@@ -34,6 +35,7 @@ export default function Home() {
       </main>
       <Footer />
       <ScrollToTop />
+      <ContactModal />
     </div>
   );
 }
