@@ -43,7 +43,7 @@ export default function SuccessStories() {
         </div>
 
         {/* STAGGERED PHOTO GALLERY */}
-        <div className="grid gap-12 sm:grid-cols-3 lg:gap-8">
+        <div className="grid gap-12 pt-16 sm:grid-cols-3 lg:gap-8">
           {photos.map((photo) => (
             <div
               key={photo.src}
