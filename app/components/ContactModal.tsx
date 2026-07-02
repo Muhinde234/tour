@@ -21,7 +21,7 @@ type FormData = {
 };
 const EMPTY: FormData = {
   first_name: "", middle_name: "", last_name: "",
-  email: "", country: "", message: "",
+  email: "", country: "RW", message: "",
 };
 
 function TextInput({ label, value, onChange, placeholder, optional, error }: {
@@ -57,6 +57,7 @@ export default function ContactModal() {
   const [errors, setErrors]   = useState<Partial<FormData>>({});
   const [loading, setLoading] = useState(false);
   const [done, setDone]       = useState(false);
+  const [submitted, setSubmitted] = useState({ name: "", email: "" });
 
   useEffect(() => {
     const handler = () => { setOpen(true); setDone(false); setForm(EMPTY); setErrors({}); };
@@ -94,15 +95,75 @@ export default function ContactModal() {
       message:     form.message.trim(),
     });
     setLoading(false);
-    if (!error) { setDone(true); setForm(EMPTY); }
+    if (!error) {
+      setSubmitted({ name: form.first_name.trim(), email: form.email.trim() });
+      setDone(true);
+      setForm(EMPTY);
+    }
   }
 
   if (!open) return null;
 
+  /* ── Full-width success screen ── */
+  if (done) {
+    return (
+      <div className="fixed inset-0 z-999 flex items-center justify-center p-4">
+        <div className="absolute inset-0 bg-black/20" onClick={() => setOpen(false)} />
+        <div className="relative w-full max-w-lg overflow-hidden rounded-3xl bg-white shadow-2xl">
+          {/* Orange top bar */}
+          <div className="h-2 w-full bg-[#f2a33c]" />
+
+          <div className="flex flex-col items-center px-10 py-10 text-center">
+            {/* Animated ring + icon */}
+            <div className="relative mb-6 flex h-24 w-24 items-center justify-center">
+              <div className="absolute inset-0 rounded-full bg-[#f2a33c]/10" />
+              <div className="absolute inset-3 rounded-full bg-[#f2a33c]/15" />
+              <div className="absolute inset-5 rounded-full bg-[#f2a33c]/20" />
+              <CheckCircle2 className="relative h-10 w-10 text-[#f2a33c]" />
+            </div>
+
+            <h3 className="text-2xl font-black text-[#0f1e3c]">
+              Thank you, {submitted.name}!
+            </h3>
+            <p className="mt-2 text-sm text-gray-500">
+              Your message has been received. We&apos;ll be in touch shortly.
+            </p>
+
+            {/* What happens next */}
+            <div className="mt-7 w-full rounded-2xl bg-gray-50 p-5 text-left">
+              <p className="mb-4 text-[11px] font-black uppercase tracking-widest text-gray-400">
+                What happens next
+              </p>
+              <ul className="space-y-3">
+                {[
+                  { step: "1", text: "Your message has been received by ETTA" },
+                  { step: "2", text: "Our team reviews your enquiry within 24 hours" },
+                  { step: "3", text: `We'll respond directly to ${submitted.email}` },
+                ].map(({ step, text }) => (
+                  <li key={step} className="flex items-start gap-3">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f2a33c] text-[11px] font-black text-white">
+                      {step}
+                    </span>
+                    <span className="text-sm text-gray-600">{text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <button onClick={() => setOpen(false)}
+              className="mt-6 w-full rounded-xl bg-[#0f1e3c] py-3 text-sm font-bold text-white transition hover:bg-[#f2a33c]">
+              Done
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const selectedCountry = COUNTRY_LIST.find((c) => c.code === form.country);
 
   return (
-    <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-999 flex items-center justify-center p-4">
       {/* No blur — clear background */}
       <div className="absolute inset-0 bg-black/20" onClick={() => setOpen(false)} />
 

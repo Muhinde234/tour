@@ -28,15 +28,15 @@ export default function Careers() {
           <div className="relative z-10 grid items-center gap-12 lg:grid-cols-12">
             <div className="lg:col-span-7">
               <span className="mb-4 inline-block text-sm font-bold uppercase tracking-[0.3em] text-[#f2a33c]">
-                We&apos;re Hiring
+                Work Abroad
               </span>
               <h2 className="text-3xl font-black leading-tight text-white lg:text-4xl">
-                Career Opportunities
+                Job Opportunities Abroad
               </h2>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80">
-                ETTA is expanding internationally and currently has open
-                positions for travel and education consultants in Portugal,
-                Norway, Serbia, and Lithuania. Join our growing global team.
+                ETTA helps you find and secure employment in Europe. We
+                currently have active job placement opportunities in Portugal,
+                Norway, Serbia, and Lithuania. Let us guide your journey.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
