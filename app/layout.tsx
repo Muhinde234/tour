@@ -143,6 +143,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${mulish.variable} h-full antialiased`}>
       <head>
+        {/* Preload hero video so browser fetches it before first paint */}
+        <link rel="preload" href="/images/video.mp4" as="video" type="video/mp4" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

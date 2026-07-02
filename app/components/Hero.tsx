@@ -3,19 +3,21 @@
 export default function Hero() {
   return (
     <section id="top" className="relative isolate h-screen overflow-hidden">
-      {/* Background video */}
+      {/* Background video — preload=auto + faststart ensures immediate play */}
       <video
         autoPlay
         muted
         loop
         playsInline
+        preload="auto"
+        poster="/images/hero-santorini.jpg"
         className="absolute inset-0 h-full w-full object-cover"
       >
         <source src="/images/video.mp4" type="video/mp4" />
       </video>
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-brand-navy/50 via-brand-navy/60 to-brand-navy/80" />
+      <div className="absolute inset-0 bg-linear-to-b from-brand-navy/50 via-brand-navy/60 to-brand-navy/80" />
 
       {/* Centered content */}
       <div className="relative flex h-full flex-col items-center justify-center px-6 text-center">
