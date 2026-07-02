@@ -1,4 +1,5 @@
 import Image from "next/image";
+import PlanTripButton from "./PlanTripButton";
 
 const reasons = [
   {
@@ -95,12 +96,7 @@ export default function WhyChooseUs() {
                         Your adventure starts here. Join us on a journey of discovery, learning, and growth.
                     </h3>
                 </div>
-                <a
-                  href="#contact"
-                  className="whitespace-nowrap rounded-full bg-[#f2a33c] px-10 py-5 text-xl font-bold text-white shadow-[0_15px_30px_rgba(242,163,60,0.3)] transition-transform hover:scale-110 active:scale-95"
-                >
-                  Plan My Trip
-                </a>
+                <PlanTripButton className="whitespace-nowrap rounded-full bg-[#f2a33c] px-10 py-5 text-xl font-bold text-white shadow-[0_15px_30px_rgba(242,163,60,0.3)] transition-transform hover:scale-110 active:scale-95" />
             </div>
         </div>
 

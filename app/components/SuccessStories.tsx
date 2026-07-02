@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import PlanTripButton from "./PlanTripButton";
 import { motion } from "framer-motion";
 
 interface Story {
@@ -83,12 +84,7 @@ export default function SuccessStories() {
 
         {/* BOTTOM CALL TO ACTION */}
         <div className="mt-20 px-6 text-center">
-          <a
-            href="#contact"
-            className="inline-block rounded-full bg-[#f2a33c] px-12 py-5 text-xl font-black text-white shadow-[0_20px_40px_rgba(242,163,60,0.3)] transition-all hover:scale-110 hover:rotate-2"
-          >
-            Start Your Journey Today
-          </a>
+          <PlanTripButton className="inline-block rounded-full bg-[#f2a33c] px-12 py-5 text-xl font-black text-white shadow-[0_20px_40px_rgba(242,163,60,0.3)] transition-all hover:scale-110 hover:rotate-2" />
         </div>
       </div>
     </section>
