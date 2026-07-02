@@ -2,13 +2,13 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
-import { Briefcase, Trash2, MailOpen, Mail, MapPin, Clock, Reply, Phone, Globe } from "lucide-react";
+import { Briefcase, Trash2, MailOpen, Mail, MapPin, Clock, Reply, Phone, Globe, FileDown } from "lucide-react";
 import { PageHeader, Toast } from "../_components/ui";
 
 type Application = {
   id: string; first_name: string; last_name: string; email: string;
   country: string; phone: string; applying_for: string;
-  message: string; country_reason: string;
+  message: string; country_reason: string; document_url: string;
   is_read: boolean; created_at: string;
 };
 
@@ -164,6 +164,19 @@ export default function ApplicationsPage() {
                     <p className="text-sm leading-relaxed text-gray-700 whitespace-pre-wrap">{selected.country_reason || "—"}</p>
                   </div>
                 </div>
+
+                {/* Document */}
+                {selected.document_url && (
+                  <a
+                    href={selected.document_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-[#f2a33c]/30 bg-[#f2a33c]/5 py-3 text-sm font-bold text-[#f2a33c] transition hover:bg-[#f2a33c]/10"
+                  >
+                    <FileDown className="h-4 w-4" />
+                    View / Download Supporting Document
+                  </a>
+                )}
 
                 {/* Reply */}
                 <a

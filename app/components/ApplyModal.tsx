@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/lib/supabase";
-import { X, CheckCircle2, BriefcaseIcon, User, Mail, FileText } from "lucide-react";
+import { X, CheckCircle2, BriefcaseIcon, User, Mail, FileText, Upload, Loader2, FileCheck } from "lucide-react";
 import PhoneInput, { getCountries, getCountryCallingCode, Country } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 
@@ -31,6 +31,9 @@ const EMPTY: Form = {
   country: "RW" as Country, phone: "",
   applying_for: "", message: "", country_reason: "",
 };
+
+const ACCEPTED = ".pdf,.doc,.docx,.jpg,.jpeg,.png";
+const ACCEPTED_LABEL = "PDF, DOC, DOCX, JPG, PNG — max 5 MB";
 
 /* ── Reusable sub-components ── */
 function SectionHeading({ icon: Icon, title }: { icon: React.ElementType; title: string }) {
@@ -88,15 +91,25 @@ function Textarea({ value, onChange, placeholder, rows = 3, error }: {
 
 /* ── Main modal ── */
 export default function ApplyModal() {
-  const [open, setOpen]       = useState(false);
-  const [form, setForm]       = useState<Form>(EMPTY);
-  const [errors, setErrors]   = useState<Partial<Record<keyof Form, string>>>({});
-  const [loading, setLoading] = useState(false);
-  const [done, setDone]       = useState(false);
+  const [open, setOpen]         = useState(false);
+  const [step, setStep]         = useState(1);
+  const [form, setForm]         = useState<Form>(EMPTY);
+  const [errors, setErrors]     = useState<Partial<Record<keyof Form, string>>>({});
+  const [loading, setLoading]   = useState(false);
+  const [done, setDone]         = useState(false);
   const [submitted, setSubmitted] = useState({ name: "", email: "", country: "", flag: "" });
+  const [docFile, setDocFile]   = useState<File | null>(null);
+  const [docUrl, setDocUrl]     = useState("");
+  const [docUploading, setDocUploading] = useState(false);
+  const [docError, setDocError] = useState("");
+  const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const handler = () => { setOpen(true); setDone(false); setForm(EMPTY); setErrors({}); };
+    const handler = () => {
+      setOpen(true); setDone(false); setStep(1);
+      setForm(EMPTY); setErrors({});
+      setDocFile(null); setDocUrl(""); setDocError("");
+    };
     window.addEventListener("open-apply", handler);
     return () => window.removeEventListener("open-apply", handler);
   }, []);
@@ -111,23 +124,48 @@ export default function ApplyModal() {
     upd("phone", "");
   }
 
-  function validate() {
+  async function handleDoc(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { setDocError("File must be under 5 MB"); return; }
+    setDocFile(file);
+    setDocError("");
+    setDocUploading(true);
+    const path = `applications/${Date.now()}-${file.name.replace(/\s+/g, "_")}`;
+    const { error } = await supabase.storage.from("documents").upload(path, file, { contentType: file.type });
+    if (error) { setDocError("Upload failed. Please try again."); setDocUploading(false); return; }
+    const { data } = supabase.storage.from("documents").getPublicUrl(path);
+    setDocUrl(data.publicUrl);
+    setDocUploading(false);
+  }
+
+  function validateStep1() {
     const e: Partial<Record<keyof Form, string>> = {};
-    if (!form.first_name.trim())  e.first_name    = "Required";
-    if (!form.last_name.trim())   e.last_name     = "Required";
+    if (!form.first_name.trim()) e.first_name = "Required";
+    if (!form.last_name.trim())  e.last_name  = "Required";
     if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email)) e.email = "Valid email required";
-    if (!form.country)            e.country       = "Select your country";
-    if (!form.phone)              e.phone         = "Phone number required";
-    if (!form.applying_for)       e.applying_for  = "Select a position";
-    if (!form.message.trim())     e.message       = "Required";
+    if (!form.country)           e.country    = "Select your country";
+    if (!form.phone)             e.phone      = "Phone number required";
+    setErrors(e);
+    return !Object.keys(e).length;
+  }
+
+  function validateStep2() {
+    const e: Partial<Record<keyof Form, string>> = {};
+    if (!form.applying_for)          e.applying_for   = "Select a country";
+    if (!form.message.trim())        e.message        = "Required";
     if (!form.country_reason.trim()) e.country_reason = "Required";
     setErrors(e);
     return !Object.keys(e).length;
   }
 
+  function nextStep() {
+    if (validateStep1()) { setStep(2); setErrors({}); }
+  }
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!validate()) return;
+    if (!validateStep2()) return;
     setLoading(true);
     const countryName = COUNTRY_LIST.find((c) => c.code === form.country)?.name ?? form.country;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -140,6 +178,7 @@ export default function ApplyModal() {
       applying_for:   form.applying_for,
       message:        form.message.trim(),
       country_reason: form.country_reason.trim(),
+      document_url:   docUrl,
     });
     setLoading(false);
     if (!error) {
@@ -297,110 +336,159 @@ export default function ApplyModal() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={submit} className="space-y-5">
+              <form onSubmit={submit} className="flex flex-col gap-5">
 
-                {/* Section 1: Personal Info */}
-                <div>
-                  <SectionHeading icon={User} title="Personal Information" />
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <FieldLabel>First Name</FieldLabel>
-                      <TextInput value={form.first_name} onChange={(v) => upd("first_name", v)} placeholder="John" error={errors.first_name} />
+                {/* ── Step progress bar ── */}
+                <div className="flex items-center gap-3">
+                  {[1, 2].map((s) => (
+                    <div key={s} className="flex flex-1 flex-col gap-1">
+                      <div className={`h-1.5 rounded-full transition-all ${s <= step ? "bg-[#f2a33c]" : "bg-gray-200"}`} />
+                      <span className={`text-[10px] font-bold uppercase tracking-widest ${s === step ? "text-[#f2a33c]" : "text-gray-300"}`}>
+                        {s === 1 ? "Personal Info" : "Your Goals"}
+                      </span>
                     </div>
-                    <div>
-                      <FieldLabel>Last Name</FieldLabel>
-                      <TextInput value={form.last_name} onChange={(v) => upd("last_name", v)} placeholder="Doe" error={errors.last_name} />
-                    </div>
-                  </div>
+                  ))}
+                  <span className="shrink-0 text-xs text-gray-400">{step} / 2</span>
                 </div>
 
-                {/* Section 2: Contact */}
-                <div>
-                  <SectionHeading icon={Mail} title="Contact Details" />
-                  <div className="grid grid-cols-2 gap-3">
+                {/* ── STEP 1 ── */}
+                {step === 1 && (
+                  <div className="space-y-4">
                     <div>
-                      <FieldLabel>Email Address</FieldLabel>
-                      <TextInput value={form.email} onChange={(v) => upd("email", v)} placeholder="you@example.com" error={errors.email} />
-                    </div>
-                    <div>
-                      <FieldLabel>Phone Number</FieldLabel>
-                      <div className={`overflow-hidden rounded-xl border bg-gray-50 transition focus-within:bg-white ${
-                        errors.phone ? "border-red-300" : "border-gray-200 focus-within:border-[#f2a33c]"
-                      }`}>
-                        <PhoneInput international countryCallingCodeEditable={false}
-                          country={(form.country || "RW") as Country}
-                          value={form.phone} onChange={(val) => upd("phone", val ?? "")}
-                          className="phone-input-custom px-4 py-2.5 text-sm" />
+                      <SectionHeading icon={User} title="Personal Information" />
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <FieldLabel>First Name</FieldLabel>
+                          <TextInput value={form.first_name} onChange={(v) => upd("first_name", v)} placeholder="John" error={errors.first_name} />
+                        </div>
+                        <div>
+                          <FieldLabel>Last Name</FieldLabel>
+                          <TextInput value={form.last_name} onChange={(v) => upd("last_name", v)} placeholder="Doe" error={errors.last_name} />
+                        </div>
                       </div>
-                      {errors.phone && <p className="mt-1 text-[11px] font-medium text-red-500">{errors.phone}</p>}
                     </div>
-                    <div className="col-span-2">
-                      <FieldLabel>Country of Residence</FieldLabel>
-                      <select value={form.country} onChange={(e) => handleCountry(e.target.value as Country | "")}
-                        className={`w-full rounded-xl border bg-gray-50 px-4 py-2.5 text-sm text-gray-900 transition focus:bg-white focus:outline-none ${
-                          errors.country ? "border-red-300" : "border-gray-200 focus:border-[#f2a33c]"
-                        }`}>
-                        <option value="">— Select country —</option>
-                        {COUNTRY_LIST.map((c) => (
-                          <option key={c.code} value={c.code}>{c.name} (+{c.callingCode})</option>
-                        ))}
-                      </select>
-                      {errors.country && <p className="mt-1 text-[11px] font-medium text-red-500">{errors.country}</p>}
-                      {form.country && (
-                        <p className="mt-1 text-xs text-gray-400">
-                          Calling code: <span className="font-bold text-[#f2a33c]">+{getCountryCallingCode(form.country as Country)}</span>
-                        </p>
+
+                    <div>
+                      <SectionHeading icon={Mail} title="Contact Details" />
+                      <div className="space-y-3">
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <FieldLabel>Email Address</FieldLabel>
+                            <TextInput value={form.email} onChange={(v) => upd("email", v)} placeholder="you@example.com" error={errors.email} />
+                          </div>
+                          <div>
+                            <FieldLabel>Phone Number</FieldLabel>
+                            <div className={`overflow-hidden rounded-xl border bg-gray-50 transition focus-within:bg-white ${errors.phone ? "border-red-300" : "border-gray-200 focus-within:border-[#f2a33c]"}`}>
+                              <PhoneInput international countryCallingCodeEditable={false}
+                                country={(form.country || "RW") as Country}
+                                value={form.phone} onChange={(val) => upd("phone", val ?? "")}
+                                className="phone-input-custom px-4 py-2.5 text-sm" />
+                            </div>
+                            {errors.phone && <p className="mt-1 text-[11px] font-medium text-red-500">{errors.phone}</p>}
+                          </div>
+                        </div>
+                        <div>
+                          <FieldLabel>Country of Residence</FieldLabel>
+                          <select value={form.country} onChange={(e) => handleCountry(e.target.value as Country | "")}
+                            className={`w-full rounded-xl border bg-gray-50 px-4 py-2.5 text-sm text-gray-900 transition focus:bg-white focus:outline-none ${errors.country ? "border-red-300" : "border-gray-200 focus:border-[#f2a33c]"}`}>
+                            <option value="">— Select country —</option>
+                            {COUNTRY_LIST.map((c) => (
+                              <option key={c.code} value={c.code}>{c.name} (+{c.callingCode})</option>
+                            ))}
+                          </select>
+                          {errors.country && <p className="mt-1 text-[11px] font-medium text-red-500">{errors.country}</p>}
+                          {form.country && (
+                            <p className="mt-1 text-xs text-gray-400">
+                              Calling code: <span className="font-bold text-[#f2a33c]">+{getCountryCallingCode(form.country as Country)}</span>
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <button type="button" onClick={nextStep}
+                      className="flex w-full items-center justify-center gap-2 rounded-full bg-[#f2a33c] py-3.5 text-sm font-bold text-white transition hover:bg-[#0f1e3c]">
+                      Next — Your Goals →
+                    </button>
+                  </div>
+                )}
+
+                {/* ── STEP 2 ── */}
+                {step === 2 && (
+                  <div className="space-y-4">
+                    <div>
+                      <SectionHeading icon={FileText} title="Your Goals" />
+                      <div className="space-y-3">
+                        <div>
+                          <FieldLabel>Country where you want to work</FieldLabel>
+                          <select value={form.applying_for} onChange={(e) => upd("applying_for", e.target.value)}
+                            className={`w-full rounded-xl border bg-gray-50 px-4 py-2.5 text-sm text-gray-900 transition focus:bg-white focus:outline-none ${errors.applying_for ? "border-red-300" : "border-gray-200 focus:border-[#f2a33c]"}`}>
+                            <option value="">— Select your preferred country —</option>
+                            {OPEN_POSITIONS.map(({ country, flag }) => (
+                              <option key={country} value={country}>{flag} {country}</option>
+                            ))}
+                          </select>
+                          {errors.applying_for && <p className="mt-1 text-[11px] font-medium text-red-500">{errors.applying_for}</p>}
+                        </div>
+                        <div>
+                          <FieldLabel>Tell us about yourself</FieldLabel>
+                          <Textarea value={form.message} onChange={(v) => upd("message", v)} rows={3}
+                            placeholder="Your background, skills, work experience, and what kind of job you are looking for…"
+                            error={errors.message} />
+                        </div>
+                        <div>
+                          <FieldLabel>Why {selectedPos ? `${selectedPos.flag} ${selectedPos.country}` : "this country"}?</FieldLabel>
+                          <Textarea value={form.country_reason} onChange={(v) => upd("country_reason", v)} rows={3}
+                            placeholder={`What is your reason for choosing ${selectedPos?.country ?? "this country"}?`}
+                            error={errors.country_reason} />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <SectionHeading icon={Upload} title="Supporting Document" />
+                      <p className="mb-3 text-xs text-gray-400">
+                        Upload your CV, visa, passport or any relevant document. ({ACCEPTED_LABEL})
+                      </p>
+                      <input ref={fileRef} type="file" accept={ACCEPTED} className="hidden" onChange={handleDoc} />
+                      {!docFile ? (
+                        <button type="button" onClick={() => fileRef.current?.click()}
+                          className="flex w-full flex-col items-center gap-2 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 py-5 text-center transition hover:border-[#f2a33c] hover:bg-[#f2a33c]/5">
+                          <Upload className="h-5 w-5 text-gray-300" />
+                          <span className="text-sm font-semibold text-gray-400">Click to upload document</span>
+                        </button>
+                      ) : (
+                        <div className={`flex items-center justify-between rounded-xl border px-4 py-3 ${docUrl ? "border-green-200 bg-green-50" : "border-gray-200 bg-gray-50"}`}>
+                          <div className="flex items-center gap-3">
+                            {docUploading ? <Loader2 className="h-5 w-5 animate-spin text-[#f2a33c]" /> : <FileCheck className={`h-5 w-5 ${docUrl ? "text-green-500" : "text-gray-400"}`} />}
+                            <div>
+                              <p className="max-w-[200px] truncate text-xs font-semibold text-gray-700">{docFile.name}</p>
+                              <p className="text-[10px] text-gray-400">{docUploading ? "Uploading…" : docUrl ? "Uploaded ✓" : "Ready"}</p>
+                            </div>
+                          </div>
+                          <button type="button" onClick={() => { setDocFile(null); setDocUrl(""); setDocError(""); }} className="text-xs text-gray-400 hover:text-red-400">Remove</button>
+                        </div>
                       )}
+                      {docError && <p className="mt-1 text-[11px] font-medium text-red-500">{docError}</p>}
                     </div>
-                  </div>
-                </div>
 
-                {/* Section 3: Application */}
-                <div>
-                  <SectionHeading icon={FileText} title="Your Goals" />
-                  <div className="space-y-3">
-                    <div>
-                      <FieldLabel>Country where you want to work</FieldLabel>
-                      <select value={form.applying_for} onChange={(e) => upd("applying_for", e.target.value)}
-                        className={`w-full rounded-xl border bg-gray-50 px-4 py-2.5 text-sm text-gray-900 transition focus:bg-white focus:outline-none ${
-                          errors.applying_for ? "border-red-300" : "border-gray-200 focus:border-[#f2a33c]"
-                        }`}>
-                        <option value="">— Select your preferred country —</option>
-                        {OPEN_POSITIONS.map(({ country, flag }) => (
-                          <option key={country} value={country}>{flag} {country}</option>
-                        ))}
-                      </select>
-                      {errors.applying_for && <p className="mt-1 text-[11px] font-medium text-red-500">{errors.applying_for}</p>}
-                    </div>
+                    <p className="rounded-xl border border-[#f2a33c]/20 bg-[#f2a33c]/5 px-4 py-3 text-xs text-gray-500">
+                      By submitting you allow ETTA to use your information to match you with job opportunities abroad.
+                    </p>
+
                     <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <FieldLabel>Tell us about yourself</FieldLabel>
-                        <Textarea value={form.message} onChange={(v) => upd("message", v)} rows={3}
-                          placeholder="Your background, skills, work experience, and what kind of job you are looking for…"
-                          error={errors.message} />
-                      </div>
-                      <div>
-                        <FieldLabel>
-                          Why {selectedPos ? `${selectedPos.flag} ${selectedPos.country}` : "this country"}?
-                        </FieldLabel>
-                        <Textarea value={form.country_reason} onChange={(v) => upd("country_reason", v)} rows={3}
-                          placeholder={`What is your reason for choosing ${selectedPos?.country ?? "this country"}? Any personal, professional, or cultural connections?`}
-                          error={errors.country_reason} />
-                      </div>
+                      <button type="button" onClick={() => { setStep(1); setErrors({}); }}
+                        className="rounded-full border border-gray-200 py-3 text-sm font-semibold text-gray-600 transition hover:bg-gray-50">
+                        ← Back
+                      </button>
+                      <button type="submit" disabled={loading || docUploading}
+                        className="flex items-center justify-center gap-2 rounded-full bg-[#0f1e3c] py-3 text-sm font-bold text-white transition hover:bg-[#f2a33c] disabled:opacity-60">
+                        <BriefcaseIcon className="h-4 w-4" />
+                        {loading ? "Submitting…" : "Submit"}
+                      </button>
                     </div>
                   </div>
-                </div>
-
-                {/* Section 4: Terms */}
-                <div className="rounded-xl bg-[#f2a33c]/5 border border-[#f2a33c]/20 px-4 py-3 text-xs text-gray-500">
-                  By submitting this form you allow ETTA to use your information to match you with job opportunities abroad and contact you regarding your request.
-                </div>
-
-                <button type="submit" disabled={loading}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#0f1e3c] py-3.5 text-sm font-bold text-white transition hover:bg-[#f2a33c] disabled:opacity-60">
-                  <BriefcaseIcon className="h-4 w-4" />
-                  {loading ? "Submitting…" : "Request ETTA's Assistance"}
-                </button>
+                )}
 
               </form>
             )}
