@@ -1,25 +1,36 @@
 import { supabase } from "@/lib/supabase";
-import { Users, Briefcase, BarChart3, Phone, Info } from "lucide-react";
+import { Users, Briefcase, BarChart3, Phone, Info, MessageSquare, FolderOpen } from "lucide-react";
 import { Card } from "./_components/ui";
 
 async function getCounts() {
-  const [t, c, s] = await Promise.all([
+  const [t, c, s, m, a] = await Promise.all([
     supabase.from("team_members").select("id", { count: "exact", head: true }),
     supabase.from("career_locations").select("id", { count: "exact", head: true }).eq("is_active", true),
     supabase.from("site_stats").select("id", { count: "exact", head: true }),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (supabase.from("contact_messages") as any).select("id", { count: "exact", head: true }).eq("is_read", false),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (supabase.from("job_applications") as any).select("id", { count: "exact", head: true }).eq("is_read", false),
   ]);
-  return { team: t.count ?? 0, careers: c.count ?? 0, stats: s.count ?? 0 };
+  return {
+    team: t.count ?? 0, careers: c.count ?? 0, stats: s.count ?? 0,
+    messages: m.count ?? 0, applications: a.count ?? 0,
+  };
 }
 
 const tiles = [
-  { key: "team",    label: "Team Members",      icon: Users,     href: "/admin/team",    color: "bg-[#0f1e3c]" },
-  { key: "careers", label: "Active Locations",  icon: Briefcase, href: "/admin/careers", color: "bg-[#f2a33c]" },
-  { key: "stats",   label: "Performance Stats", icon: BarChart3, href: "/admin/stats",   color: "bg-emerald-500" },
+  { key: "team",         label: "Team Members",       icon: Users,          href: "/admin/team",         color: "bg-[#0f1e3c]" },
+  { key: "careers",      label: "Active Locations",   icon: Briefcase,      href: "/admin/careers",      color: "bg-[#f2a33c]" },
+  { key: "stats",        label: "Performance Stats",  icon: BarChart3,      href: "/admin/stats",        color: "bg-emerald-500" },
+  { key: "messages",     label: "Unread Messages",    icon: MessageSquare,  href: "/admin/messages",     color: "bg-blue-600" },
+  { key: "applications", label: "New Applications",   icon: FolderOpen,     href: "/admin/applications", color: "bg-purple-600" },
 ];
 
 const quickLinks = [
-  { href: "/admin/about",   label: "Edit About Cards",    icon: Info },
-  { href: "/admin/contact", label: "Update Contact Info", icon: Phone },
+  { href: "/admin/messages",     label: "View Contact Messages", icon: MessageSquare },
+  { href: "/admin/applications", label: "View Job Applications", icon: FolderOpen },
+  { href: "/admin/about",        label: "Edit About Cards",      icon: Info },
+  { href: "/admin/contact",      label: "Update Contact Info",   icon: Phone },
 ];
 
 export default async function DashboardPage() {

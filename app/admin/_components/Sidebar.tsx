@@ -6,8 +6,10 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Star, Users, BarChart3, Briefcase, Phone,
   Info, ImageIcon, Heart, CheckCircle, Settings, ExternalLink,
+  MessageSquare, FolderOpen,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
+import SignOutButton from "./SignOutButton";
 
 const groups = [
   {
@@ -32,6 +34,13 @@ const groups = [
     items: [
       { href: "/admin/team",     label: "Team",          icon: Users },
       { href: "/admin/careers",  label: "Careers",       icon: Briefcase },
+    ],
+  },
+  {
+    label: "Inbox",
+    items: [
+      { href: "/admin/messages",     label: "Contact Messages", icon: MessageSquare },
+      { href: "/admin/applications", label: "Job Applications", icon: FolderOpen },
     ],
   },
   {
@@ -90,7 +99,7 @@ export default function Sidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="border-t border-white/10 p-3">
+      <div className="border-t border-white/10 p-3 space-y-1">
         <a
           href="/"
           target="_blank"
@@ -99,6 +108,7 @@ export default function Sidebar() {
           <ExternalLink className="h-3.5 w-3.5" />
           View Live Site
         </a>
+        <SignOutButton />
       </div>
     </aside>
   );
