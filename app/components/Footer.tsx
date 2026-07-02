@@ -54,7 +54,7 @@ export default function Footer() {
         </div>
 
         <p className="mt-8 text-center text-sm text-white/60">
-          &copy; {new Date().getFullYear()} EMMA TOUR AND TRAVEL AGENCY LTD.
+          &copy; {new Date().getFullYear()}{" "}EMMA TOUR AND TRAVEL AGENCY LTD.
           All rights reserved. &mdash; Say Yes To New World!
         </p>
         <p className="mt-2 text-center text-xs text-white/40">

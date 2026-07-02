@@ -52,7 +52,7 @@ const groups = [
   },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ onNav }: { onNav?: () => void }) {
   const path = usePathname();
 
   return (
@@ -80,6 +80,7 @@ export default function Sidebar() {
                   <li key={href}>
                     <Link
                       href={href}
+                      onClick={onNav}
                       className={cn(
                         "flex items-center gap-2.5 rounded-xl px-3 py-2 text-[13px] font-medium transition-all",
                         active

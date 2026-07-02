@@ -1,14 +1,7 @@
-import Sidebar from "./_components/Sidebar";
+import AdminShell from "./_components/AdminShell";
 
 export const metadata = { title: "ETTA Admin" };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex h-screen overflow-hidden bg-[#f8fafc] font-sans">
-      <Sidebar />
-      <main className="flex-1 overflow-y-auto p-8">
-        {children}
-      </main>
-    </div>
-  );
+  return <AdminShell>{children}</AdminShell>;
 }
