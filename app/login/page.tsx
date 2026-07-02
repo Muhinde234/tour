@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createBrowserClient } from "@supabase/ssr";
 import Image from "next/image";
-import { Eye, EyeOff, Lock } from "lucide-react";
+import Link from "next/link";
+import { Eye, EyeOff, Lock, ArrowLeft } from "lucide-react";
 
 const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -41,8 +42,27 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#0f1e3c] p-4 font-sans">
-      <div className="w-full max-w-sm overflow-hidden rounded-3xl bg-white shadow-2xl">
+    <div className="relative flex min-h-screen items-center justify-center p-4 font-sans">
+      {/* Hero background image */}
+      <Image
+        src="/images/hero-santorini.jpg"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
+      />
+      {/* Subtle overlay */}
+      <div className="absolute inset-0 bg-white/60 backdrop-blur-sm" />
+
+      {/* Back to home */}
+      <Link href="/"
+        className="absolute left-6 top-6 z-10 flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-sm font-semibold text-[#0f1e3c] shadow-sm backdrop-blur-sm transition hover:bg-white">
+        <ArrowLeft className="h-4 w-4" />
+        Back to Home
+      </Link>
+
+      <div className="relative w-full max-w-sm overflow-hidden rounded-3xl bg-white shadow-2xl">
         {/* Top orange bar */}
         <div className="h-1.5 w-full bg-[#f2a33c]" />
 
