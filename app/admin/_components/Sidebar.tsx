@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Star, Users, BarChart3, Briefcase, Phone,
   Info, ImageIcon, Heart, CheckCircle, Settings, ExternalLink,
-  MessageSquare, FolderOpen,
+  MessageSquare, FolderOpen, MapPin, Tag,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import SignOutButton from "./SignOutButton";
@@ -34,6 +34,13 @@ const groups = [
     items: [
       { href: "/admin/team",     label: "Team",          icon: Users },
       { href: "/admin/careers",  label: "Careers",       icon: Briefcase },
+    ],
+  },
+  {
+    label: "Trip Options",
+    items: [
+      { href: "/admin/destinations", label: "Destinations", icon: MapPin },
+      { href: "/admin/trip-types",   label: "Trip Types",   icon: Tag },
     ],
   },
   {

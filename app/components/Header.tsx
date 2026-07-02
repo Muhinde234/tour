@@ -8,6 +8,9 @@ import { motion, AnimatePresence } from "framer-motion";
 function openContact() {
   window.dispatchEvent(new Event("open-contact"));
 }
+function openPlanTrip() {
+  window.dispatchEvent(new Event("open-plan-trip"));
+}
 
 const navLinks = [
   { href: "#about", label: "About", modal: false },
@@ -76,7 +79,7 @@ export default function Header() {
         {/* RIGHT SIDE: DARK PILL CTA */}
         <div className="flex flex-1 items-center justify-end">
           <button
-            onClick={openContact}
+            onClick={openPlanTrip}
             className="hidden rounded-full bg-slate-900 px-7 py-3 text-[15px] font-bold text-white transition-all hover:bg-slate-800 sm:block"
           >
             Plan My Trip
@@ -118,7 +121,7 @@ export default function Header() {
               ))}
               <li className="w-full px-10">
                 <button
-                  onClick={() => { setOpen(false); openContact(); }}
+                  onClick={() => { setOpen(false); openPlanTrip(); }}
                   className="w-full rounded-full bg-slate-900 py-4 text-white"
                 >
                   Plan My Trip
