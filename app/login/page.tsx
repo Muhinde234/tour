@@ -120,7 +120,7 @@ export default function LoginPage() {
 
             {/* Submit */}
             <button type="submit" disabled={loading}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#f2a33c] py-3.5 text-sm font-bold text-white transition hover:bg-[#0f1e3c] disabled:opacity-60">
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-[#f2a33c] py-3.5 text-sm font-bold text-white transition hover:bg-[#0f1e3c] disabled:opacity-60">
               <Lock className="h-4 w-4" />
               {loading ? "Signing in…" : "Sign In"}
             </button>
