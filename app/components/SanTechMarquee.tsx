@@ -5,11 +5,8 @@ import { motion } from "framer-motion";
 
 const partners = [
   { name: "SAN Tech", src: "/santech.png" },
-  { name: "Partner 2", src: "/santech.png" }, // Replace with your actual logo paths
-  { name: "Partner 3", src: "/santech.png" },
-  { name: "Partner 4", src: "/santech.png" },
-  { name: "Partner 5", src: "/santech.png" },
-  { name: "Partner 6", src: "/santech.png" },
+  { name: "Partner 1", src: "/images/pattern2.webp" }, // Replace with your actual logo paths
+ { name: "Partner 4", src: "/images/pattern1.jpeg" }
 ];
 
 // Duplicate the list multiple times to ensure a seamless infinite gapless scroll
