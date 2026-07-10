@@ -5,17 +5,17 @@ import { motion } from "framer-motion";
 
 const partners = [
   { name: "SAN Tech", src: "/santech.png" },
-  { name: "Partner 1", src: "/images/pattern2.webp" }, // Replace with your actual logo paths
+  { name: "Partner 1", src: "/images/pattern2.webp" }, 
  { name: "Partner 4", src: "/images/pattern1.jpeg" }
 ];
 
-// Duplicate the list multiple times to ensure a seamless infinite gapless scroll
+
 const scrollingPartners = [...partners, ...partners, ...partners, ...partners];
 
 export default function PartnerMarquee() {
   return (
     <section className="relative overflow-hidden bg-[#fefae0] py-12 border-y border-[#f2a33c]/20">
-      {/* Optional Title */}
+  
       <div className="mb-8 text-center">
         <h3 className="text-sm font-bold uppercase tracking-[0.3em] text-[#f2a33c]/80">
           Our Global Partners
@@ -23,7 +23,7 @@ export default function PartnerMarquee() {
       </div>
 
       <div className="relative flex items-center">
-        {/* Left & Right Fades to make it look like it emerges from nothing */}
+       
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-[#fefae0] to-transparent" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-[#fefae0] to-transparent" />
 

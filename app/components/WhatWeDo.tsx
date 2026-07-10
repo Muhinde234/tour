@@ -88,7 +88,7 @@ export default function WhatWeDo() {
 
             <div className="order-1 relative h-[500px] overflow-hidden rounded-[4rem] shadow-2xl lg:col-span-7 lg:h-[700px] lg:order-2">
               <Image
-                src="/images/success-3.jpg"
+                src= "/images/team-manager-therese.jpg"
                 alt="Education"
                 fill
                 className="object-cover transition-transform duration-1000 hover:scale-105"
