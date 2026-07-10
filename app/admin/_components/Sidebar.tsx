@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Star, Users, BarChart3, Briefcase, Phone,
   Info, ImageIcon, Heart, CheckCircle, Settings, ExternalLink,
-  MessageSquare, FolderOpen, MapPin, Tag,
+  MessageSquare, FolderOpen, MapPin, Tag, Quote, Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import SignOutButton from "./SignOutButton";
@@ -26,7 +26,9 @@ const groups = [
       { href: "/admin/values",   label: "Values",        icon: Heart },
       { href: "/admin/services", label: "Services",      icon: Star },
       { href: "/admin/why-us",   label: "Why Choose Us", icon: CheckCircle },
-      { href: "/admin/stats",    label: "Stats",         icon: BarChart3 },
+      { href: "/admin/stats",      label: "Stats",           icon: BarChart3 },
+      { href: "/admin/stories",     label: "Success Stories",  icon: Quote },
+      { href: "/admin/advantages",  label: "What Sets Us Apart", icon: Sparkles },
     ],
   },
   {

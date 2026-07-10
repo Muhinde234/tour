@@ -1,53 +1,45 @@
 import Image from "next/image";
+import { createSupabaseServerClient } from "@/lib/supabase-server";
 
-export default function WhatWeDo() {
+const DEFAULT_MISSION = "To empower individuals through enriching travel and educational experiences. By providing top-notch tourism services and comprehensive study abroad programs, we aim to broaden horizons, foster cultural understanding, and contribute to the personal and professional growth of our clients.";
+const DEFAULT_TOURISM = "We curate personalized travel itineraries that provide enriching experiences and memorable adventures. From cultural tours and historical explorations to relaxing getaways and adventure trips, we ensure every journey is meticulously planned and flawlessly executed.";
+const DEFAULT_EDUCATION = "Our education consultancy services are designed to help students achieve their academic goals through study abroad programs. We provide comprehensive guidance on choosing the right institutions, applying for programs, and securing visas.";
+
+export default async function WhatWeDo() {
+  const supabase = await createSupabaseServerClient();
+  const { data } = await supabase.from("site_config").select("key,value").in("key", ["mission_text", "service_tourism_body", "service_education_body"]);
+  const cfg = Object.fromEntries((data ?? []).map((r) => [r.key, r.value]));
+
+  const mission = cfg.mission_text || DEFAULT_MISSION;
+  const tourismBody = cfg.service_tourism_body || DEFAULT_TOURISM;
+  const educationBody = cfg.service_education_body || DEFAULT_EDUCATION;
+
   return (
     <section id="services" className="bg-white py-12 overflow-hidden">
       <div className="mx-auto max-w-[1400px] px-6">
-        
-        {/* SECTION HEADER & MISSION MANIFESTO */}
         <div className="mb-10 grid items-end gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <span className="mb-4 inline-block font-bold uppercase tracking-[0.3em] text-[#f2a33c]">
-              Our Purpose
-            </span>
+            <span className="mb-4 inline-block font-bold uppercase tracking-[0.3em] text-[#f2a33c]">Our Purpose</span>
             <h2 className="text-3xl font-black leading-tight text-slate-900 lg:text-4xl">
-              What <br /> 
-              <span className="text-[#f2a33c]">We Do.</span>
+              What <br /><span className="text-[#f2a33c]">We Do.</span>
             </h2>
           </div>
-          
           <div className="relative lg:col-span-7">
             <div className="relative z-10 rounded-[2.5rem] bg-[#f8fafc] p-10 lg:p-14 shadow-sm border-l-8 border-[#f2a33c]">
               <h3 className="mb-4 text-2xl font-bold text-slate-900 uppercase tracking-widest">Our Mission</h3>
-              <p className="text-xl leading-relaxed text-slate-600">
-                To empower individuals through enriching travel and educational
-                experiences. By providing top-notch tourism services and
-                comprehensive study abroad programs, we aim to broaden horizons,
-                foster cultural understanding, and contribute to the personal and
-                professional growth of our clients.
-              </p>
+              <p className="text-xl leading-relaxed text-slate-600">{mission}</p>
             </div>
-            {/* Decorative element behind mission */}
             <div className="absolute -right-4 -top-4 h-full w-full rounded-[2.5rem] bg-[#f2a33c]/5" />
           </div>
         </div>
 
-        {/* SERVICES: OVERLAPPING DESIGN */}
         <div className="space-y-16">
-          
-          {/* SERVICE 1: TOURISM */}
+          {/* Tourism */}
           <div className="grid items-center gap-12 lg:grid-cols-12">
             <div className="relative h-[500px] overflow-hidden rounded-[4rem] shadow-2xl lg:col-span-7 lg:h-[700px]">
-              <Image
-                src="/images/what-we-do-car.jpg"
-                alt="Tourism"
-                fill
-                className="object-cover transition-transform duration-1000 hover:scale-110"
-              />
+              <Image src="/images/what-we-do-car.jpg" alt="Tourism" fill className="object-cover transition-transform duration-1000 hover:scale-110" />
               <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent" />
             </div>
-
             <div className="relative z-20 -mt-20 lg:-ml-32 lg:mt-0 lg:col-span-5">
               <div className="rounded-[3rem] bg-white p-12 shadow-[0_30px_60px_rgba(0,0,0,0.08)] transition-all hover:shadow-[0_30px_60px_rgba(242,163,60,0.2)]">
                 <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-[#f2a33c] text-white">
@@ -56,18 +48,12 @@ export default function WhatWeDo() {
                   </svg>
                 </div>
                 <h3 className="mb-6 text-3xl font-black text-slate-900">Tourism</h3>
-                <p className="text-lg leading-relaxed text-slate-500">
-                  We curate personalized travel itineraries that provide
-                  enriching experiences and memorable adventures. From cultural
-                  tours and historical explorations to relaxing getaways and
-                  adventure trips, we ensure every journey is meticulously
-                  planned and flawlessly executed.
-                </p>
+                <p className="text-lg leading-relaxed text-slate-500">{tourismBody}</p>
               </div>
             </div>
           </div>
 
-          {/* SERVICE 2: EDUCATION (REVERSED) */}
+          {/* Education */}
           <div className="grid items-center gap-12 lg:grid-cols-12">
             <div className="order-2 relative z-20 -mt-20 lg:-mr-32 lg:mt-0 lg:col-span-5 lg:order-1">
               <div className="rounded-[3rem] bg-slate-900 p-12 shadow-[0_30px_60px_rgba(0,0,0,0.08)] text-white">
@@ -77,26 +63,14 @@ export default function WhatWeDo() {
                   </svg>
                 </div>
                 <h3 className="mb-6 text-3xl font-black">Education Consultancy</h3>
-                <p className="text-lg leading-relaxed text-slate-400">
-                  Our education consultancy services are designed to help
-                  students achieve their academic goals through study abroad
-                  programs. We provide comprehensive guidance on choosing the
-                  right institutions, applying for programs, and securing visas.
-                </p>
+                <p className="text-lg leading-relaxed text-slate-400">{educationBody}</p>
               </div>
             </div>
-
             <div className="order-1 relative h-[500px] overflow-hidden rounded-[4rem] shadow-2xl lg:col-span-7 lg:h-[700px] lg:order-2">
-              <Image
-                src= "/images/team-manager-therese.jpg"
-                alt="Education"
-                fill
-                className="object-cover transition-transform duration-1000 hover:scale-105"
-              />
+              <Image src="/images/team-manager-therese.jpg" alt="Education" fill className="object-cover transition-transform duration-1000 hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-l from-black/40 to-transparent" />
             </div>
           </div>
-
         </div>
       </div>
     </section>

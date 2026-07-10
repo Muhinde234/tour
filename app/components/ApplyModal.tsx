@@ -14,11 +14,13 @@ const COUNTRY_LIST = getCountries()
   }))
   .sort((a, b) => a.name.localeCompare(b.name));
 
-const OPEN_POSITIONS = [
-  { country: "Portugal",  flag: "🇵🇹" },
-  { country: "Norway",    flag: "🇳🇴" },
-  { country: "Serbia",    flag: "🇷🇸" },
-  { country: "Lithuania", flag: "🇱🇹" },
+const POSITIONS_FALLBACK = [
+  { country: "Portugal",       flag: "🇵🇹" },
+  { country: "Norway",         flag: "🇳🇴" },
+  { country: "Serbia",         flag: "🇷🇸" },
+  { country: "Lithuania",      flag: "🇱🇹" },
+  { country: "Hungary",        flag: "🇭🇺" },
+  { country: "Czech Republic", flag: "🇨🇿" },
 ];
 
 type Form = {
@@ -102,7 +104,18 @@ export default function ApplyModal() {
   const [docUrl, setDocUrl]     = useState("");
   const [docUploading, setDocUploading] = useState(false);
   const [docError, setDocError] = useState("");
+  const [positions, setPositions] = useState(POSITIONS_FALLBACK);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    supabase.from("career_locations").select("country,flag").eq("is_active", true).order("display_order")
+      .then(({ data }) => {
+        if (!data || data.length === 0) return;
+        const dbCountries = data.map((c: { country: string }) => c.country);
+        const extra = POSITIONS_FALLBACK.filter((f) => !dbCountries.includes(f.country));
+        setPositions([...data, ...extra]);
+      });
+  }, []);
 
   useEffect(() => {
     const handler = () => {
@@ -182,7 +195,7 @@ export default function ApplyModal() {
     });
     setLoading(false);
     if (!error) {
-      const pos = OPEN_POSITIONS.find((p) => p.country === form.applying_for);
+      const pos = positions.find((p) => p.country === form.applying_for);
       setSubmitted({
         name: form.first_name.trim(),
         email: form.email.trim(),
@@ -260,7 +273,7 @@ export default function ApplyModal() {
     );
   }
 
-  const selectedPos = OPEN_POSITIONS.find((p) => p.country === form.applying_for);
+  const selectedPos = positions.find((p) => p.country === form.applying_for);
 
   return (
     <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
@@ -287,7 +300,7 @@ export default function ApplyModal() {
                 We Place Talent In
               </p>
               <ul className="space-y-2">
-                {OPEN_POSITIONS.map(({ country, flag }) => (
+                {positions.map(({ country, flag }) => (
                   <li key={country}
                     className={`flex items-center gap-2 rounded-xl px-3 py-2 text-sm transition ${
                       form.applying_for === country
@@ -424,7 +437,7 @@ export default function ApplyModal() {
                           <select value={form.applying_for} onChange={(e) => upd("applying_for", e.target.value)}
                             className={`w-full rounded-xl border bg-gray-50 px-4 py-2.5 text-sm text-gray-900 transition focus:bg-white focus:outline-none ${errors.applying_for ? "border-red-300" : "border-gray-200 focus:border-[#f2a33c]"}`}>
                             <option value="">— Select your preferred country —</option>
-                            {OPEN_POSITIONS.map(({ country, flag }) => (
+                            {positions.map(({ country, flag }) => (
                               <option key={country} value={country}>{flag} {country}</option>
                             ))}
                           </select>
