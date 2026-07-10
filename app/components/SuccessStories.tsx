@@ -20,7 +20,7 @@ const stories: Story[] = [
   {
     id: 2,
     story: "I was overwhelmed by the application process for Canada. Today, I'm working at a top tech firm in Toronto.",
-    src: "/images/success-3.jpg",
+    src: "/images/team-manager-therese.jpg",
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ const stories: Story[] = [
   {
     id: 5,
     story: "Thanks to ETTA, I am now pursuing my dream degree in Australia with a partial scholarship.",
-    src: "/images/success-3.jpg",
+    src: "/images/team-manager-therese.jpg",
   },
 ];
 
